@@ -1,4 +1,4 @@
-import { Controller } from '@nestjs/common';
+import { Controller, HttpException, HttpStatus } from '@nestjs/common';
 import { Header, Redirect, Get, Post, Put, Delete } from '@nestjs/common';
 import { Query, Param, Body } from '@nestjs/common';
 
@@ -15,12 +15,22 @@ class CatsController {
 
   @Get()
   findAll(@Query() query: ListAllEntities) {
+    if (!query.limit) {
+      throw new HttpException(
+        {
+          status: HttpStatus.FORBIDDEN,
+          error: `Error(${HttpStatus.FORBIDDEN}): query.limit is empty`,
+        },
+        HttpStatus.FORBIDDEN,
+      );
+    }
+
     return `This action returns all cats (limit: ${query.limit} items)`;
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return `This action returns a #${id} cat`;
+    return `<h1>This action returns a #${id} cat</h1>`;
   }
 
   @Put(':id')
