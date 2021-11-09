@@ -6,7 +6,7 @@ content-type: application/json
 
 {
     "name": "cc",
-    "age": "1",
+    "age": 3,
     "breed": "Shiba Lnu"
 }
 

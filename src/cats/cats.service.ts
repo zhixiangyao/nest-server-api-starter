@@ -2,8 +2,8 @@ import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
-import type { Cat, CatDocument } from './schemas';
-import type { CreateCatDto } from './dto';
+import { Cat, CatDocument } from './schemas';
+import { CreateCatDto } from './dto';
 
 @Injectable()
 export class CatsService {
