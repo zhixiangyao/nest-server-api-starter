@@ -10,6 +10,7 @@ export class CatsController {
   constructor(private readonly catsService: CatsService) {}
 
   @Header('Cache-Control', 'none')
+  @Header('content-type', 'application/json')
   @Post()
   create(@Body() createCatDto: CreateCatDto) {
     this.catsService.create(createCatDto);
@@ -17,21 +18,25 @@ export class CatsController {
     return 'This action adds a new cat';
   }
 
+  @Header('content-type', 'application/json')
   @Get()
   findAll(@Query() query: ListAllEntities) {
     return `This action returns all cats (limit: ${query.limit} items)`;
   }
 
+  @Header('content-type', 'text/html')
   @Get(':id')
   findOne(@Param('id', ParseIntPipe) id: number) {
     return `<h1>This action returns a #${id} cat</h1>`;
   }
 
+  @Header('content-type', 'application/json')
   @Put(':id')
   update(@Param('id', ParseIntPipe) id: number) {
     return `This action updates a #${id} cat`;
   }
 
+  @Header('content-type', 'application/json')
   @Delete(':id')
   remove(@Param('id', ParseIntPipe) id: number) {
     return `This action removes a #${id} cat`;
