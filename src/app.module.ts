@@ -1,13 +1,22 @@
 import { Module } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
 
-import { CatsController } from './cats/cats.controller';
-import { CatsService } from './cats/cats.service';
+import { CatsModule } from './cats/cats.module';
+
+const LOCALHOST = '127.0.0.1';
+const PORT = 27017;
+const DATABASE = 'aliez';
 
 @Module({
-  imports: [],
-  controllers: [CatsController],
-  providers: [CatsService],
+  imports: [
+    /**
+     *  If connecting fails on your machine, try using 127.0.0.1 instead of localhost.
+     *  https://mongoosejs.com/docs/connections.html
+     */
+    MongooseModule.forRoot(`mongodb://${LOCALHOST}:${PORT}/${DATABASE}`),
+    CatsModule,
+  ],
+  controllers: [],
+  providers: [],
 })
-class AppModule {}
-
-export { AppModule };
+export class AppModule {}

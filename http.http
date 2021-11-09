@@ -1,0 +1,36 @@
+# This file use the [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) plugin.
+### cats.controller -> POST create()
+
+POST http://localhost:3000/cats HTTP/1.1
+content-type: application/json
+
+{
+    "name": "cc",
+    "age": "1",
+    "breed": "Shiba Lnu"
+}
+
+### cats.controller -> GET findAll()
+
+GET http://localhost:3000/cats?limit=100 HTTP/1.1
+content-type: application/json
+
+### cats.controller -> GET findOne()
+
+GET http://localhost:3000/cats/007 HTTP/1.1
+content-type: text/html
+
+### cats.controller -> PUT update()
+
+PUT http://localhost:3000/cats/007 HTTP/1.1
+content-type: application/json
+
+### cats.controller -> Delete remove()
+
+Delete http://localhost:3000/cats/007 HTTP/1.1
+content-type: application/json
+
+### cats.controller -> GET getDocs()
+
+GET http://localhost:3000/cats/docs/version/4 HTTP/1.1
+content-type: application/json

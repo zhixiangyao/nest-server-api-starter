@@ -2,14 +2,21 @@ import { Controller, HttpException, HttpStatus } from '@nestjs/common';
 import { Header, Redirect, Get, Post, Put, Delete } from '@nestjs/common';
 import { Query, Param, Body } from '@nestjs/common';
 
-import { CreateCatDto, UpdateCatDto, ListAllEntities } from './dto';
+import type { CreateCatDto, UpdateCatDto, ListAllEntities } from './dto';
+import { CatsService } from './cats.service';
+import { validateCreate } from './validate';
 
 @Controller('cats')
-class CatsController {
+export class CatsController {
+  constructor(private readonly catsService: CatsService) {}
+
   @Post()
   @Header('Cache-Control', 'none')
   create(@Body() createCatDto: CreateCatDto) {
-    console.log(createCatDto);
+    validateCreate(createCatDto);
+
+    this.catsService.create(createCatDto);
+
     return 'This action adds a new cat';
   }
 
@@ -44,9 +51,15 @@ class CatsController {
     return `This action removes a #${id} cat`;
   }
 
-  @Get('docs')
+  @Get('docs/version/:version')
   @Redirect('https://docs.nestjs.com', 302)
-  getDocs(@Query('version') version: string) {
+  getDocs(@Param('version') version: string) {
+    if (version && version === '4') {
+      return {
+        url: 'https://docs.nestjs.com/v4/',
+        statusCode: 302,
+      };
+    }
     if (version && version === '5') {
       return {
         url: 'https://docs.nestjs.com/v5/',
@@ -55,5 +68,3 @@ class CatsController {
     }
   }
 }
-
-export { CatsController };
