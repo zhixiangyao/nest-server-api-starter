@@ -1,11 +1,13 @@
 import { Controller, ParseIntPipe } from '@nestjs/common';
 import { Header, Redirect, Get, Post, Put, Delete } from '@nestjs/common';
 import { Query, Param, Body } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 
 import { CreateCatDto, ListAllEntities } from './dto';
 import { CatsService } from './cats.service';
 
 @Controller('cats')
+@ApiTags('cats')
 export class CatsController {
   constructor(private readonly catsService: CatsService) {}
 
