@@ -1,3 +1,5 @@
+// Data transfer object
+
 class CreateCatDto {
   readonly name: string;
   readonly age: number;
