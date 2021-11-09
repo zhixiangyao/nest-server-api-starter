@@ -19,8 +19,6 @@ export class CatsController {
 
   @Get()
   findAll(@Query() query: ListAllEntities) {
-    console.log(query);
-
     return `This action returns all cats (limit: ${query.limit} items)`;
   }
 
