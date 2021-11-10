@@ -9,7 +9,7 @@ import { CreateCatDto } from './dto';
 export class CatsService {
   constructor(@InjectModel('Cat') private catModel: Model<CatDocument>) {}
 
-  async create(createCatDto: CreateCatDto): Promise<Cat> {
+  async createCat(createCatDto: CreateCatDto): Promise<Cat> {
     const createdCat = new this.catModel(createCatDto);
     return createdCat.save();
   }

@@ -11,11 +11,10 @@ import { CatsService } from './cats.service';
 export class CatsController {
   constructor(private readonly catsService: CatsService) {}
 
-  @Header('Cache-Control', 'none')
   @Header('content-type', 'application/json')
   @Post()
-  create(@Body() createCatDto: CreateCatDto) {
-    this.catsService.create(createCatDto);
+  createCat(@Body() createCatDto: CreateCatDto) {
+    this.catsService.createCat(createCatDto);
 
     return 'This action adds a new cat';
   }

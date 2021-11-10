@@ -1,5 +1,5 @@
 # This file use the [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) plugin.
-### cats.controller -> POST create()
+### cats.controller -> POST createCat()
 
 POST http://localhost:3000/cats HTTP/1.1
 content-type: application/json
