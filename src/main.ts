@@ -18,7 +18,9 @@ const shouldCompress: CompressionFilter = (req, res) => {
 };
 
 const bootstrap = async () => {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    logger: ['error', 'warn'],
+  });
 
   app.useGlobalPipes(new ValidationPipe({ disableErrorMessages: false }));
   app.use(compression({ filter: shouldCompress }));
