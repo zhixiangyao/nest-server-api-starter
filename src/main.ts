@@ -1,21 +1,9 @@
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
-import * as compression from 'compression';
-import type { CompressionFilter } from 'compression';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger'; // https://docs.nestjs.com/openapi/introduction
 import * as chalk from 'chalk';
 
 import { AppModule } from './app.module';
-
-const shouldCompress: CompressionFilter = (req, res) => {
-  if (req.headers['x-no-compression']) {
-    // don't compress responses with this request header
-    return false;
-  }
-
-  // fallback to standard filter function
-  return compression.filter(req, res);
-};
 
 const bootstrap = async () => {
   const app = await NestFactory.create(AppModule, {
@@ -23,7 +11,6 @@ const bootstrap = async () => {
   });
 
   app.useGlobalPipes(new ValidationPipe({ disableErrorMessages: false }));
-  app.use(compression({ filter: shouldCompress }));
 
   const config = new DocumentBuilder()
     .setTitle('Cats super cute!')
