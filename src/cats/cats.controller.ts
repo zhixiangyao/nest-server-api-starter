@@ -1,62 +1,74 @@
-import { Controller, ParseIntPipe } from '@nestjs/common';
-import { Header, Redirect, Get, Post, Put, Delete } from '@nestjs/common';
-import { Query, Param, Body } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import {
+  Controller,
+  ParseIntPipe,
+  ParseArrayPipe,
+  HttpException,
+  HttpStatus,
+  Header,
+  Post,
+  Put,
+  Delete,
+  Param,
+  Body,
+} from '@nestjs/common';
+import { ApiTags, ApiBody } from '@nestjs/swagger';
+import { Types } from 'mongoose';
 
-import { CreateCatDto, ListAllEntities } from './dto';
+import { CreateCatDto, FindCatDto } from './dto';
 import { CatsService } from './cats.service';
 
-@Controller('cats')
 @ApiTags('cats')
+@Controller('/api/cats')
 export class CatsController {
   constructor(private readonly catsService: CatsService) {}
 
+  @ApiBody({ type: [CreateCatDto] })
   @Header('content-type', 'application/json')
-  @Post()
-  createCat(@Body() createCatDto: CreateCatDto) {
-    this.catsService.createCat(createCatDto);
+  @Post('create')
+  create(
+    @Body(new ParseArrayPipe({ items: CreateCatDto }))
+    cats: CreateCatDto[],
+  ) {
+    cats.forEach(async (cat) => {
+      await this.catsService.createOne(cat);
+    });
 
-    return 'This action adds a new cat';
-  }
-
-  @Header('content-type', 'application/json')
-  @Get()
-  findAll(@Query() query: ListAllEntities) {
-    return `This action returns all cats (limit: ${query.limit} items)`;
-  }
-
-  @Header('content-type', 'text/html')
-  @Get(':id')
-  findOne(@Param('id', ParseIntPipe) id: number) {
-    return `<h1>This action returns a #${id} cat</h1>`;
+    return { message: 'This action adds a new cats' };
   }
 
   @Header('content-type', 'application/json')
-  @Put(':id')
-  update(@Param('id', ParseIntPipe) id: number) {
-    return `This action updates a #${id} cat`;
-  }
-
-  @Header('content-type', 'application/json')
-  @Delete(':id')
-  remove(@Param('id', ParseIntPipe) id: number) {
-    return `This action removes a #${id} cat`;
-  }
-
-  @Redirect('https://docs.nestjs.com', 302)
-  @Get('docs/version/:version')
-  getDocs(@Param('version', ParseIntPipe) version: number) {
-    if (version && version === 4) {
-      return {
-        url: 'https://docs.nestjs.com/v4/',
-        statusCode: 302,
-      };
+  @Delete('delete/:id')
+  delete(@Param('id') id: string) {
+    if (Types.ObjectId.isValid(id) === false) {
+      throw new HttpException(
+        {
+          status: HttpStatus.FORBIDDEN,
+          error: `Error(${HttpStatus.FORBIDDEN}): id is illegal`,
+        },
+        HttpStatus.FORBIDDEN,
+      );
     }
-    if (version && version === 5) {
-      return {
-        url: 'https://docs.nestjs.com/v5/',
-        statusCode: 302,
-      };
-    }
+    this.catsService.deleteOne(id);
+    return { message: `Delete success!` };
+  }
+
+  @Header('content-type', 'application/json')
+  @Put('put/:id')
+  async put(@Param('id') id: string, @Body() body: any) {
+    console.log(body);
+    // await this.catsService.updateOne(id, {});
+    return { message: `This action updates a #${id} cat` };
+  }
+
+  @ApiBody({ type: FindCatDto })
+  @Header('content-type', 'application/json')
+  @Post('find')
+  async find(@Body() body: FindCatDto) {
+    const data = await this.catsService.find(body);
+
+    return {
+      message: `Find success!`,
+      data,
+    };
   }
 }

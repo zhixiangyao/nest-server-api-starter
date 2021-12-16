@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumberString } from 'class-validator';
+import { IsNotEmpty } from 'class-validator';
 import { IsInt, Min, Max } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
@@ -32,12 +32,18 @@ export class CreateCatDto {
   breed: string;
 }
 
-export class ListAllEntities {
-  @IsNumberString()
-  @IsNotEmpty({ message: 'Limit cannot be empty' })
+export class UpdateCatDto {
+  name: string;
+
+  age: number;
+
+  breed: string;
+}
+
+export class FindCatDto {
   @ApiProperty({
-    description: 'The limit of a cat',
-    default: 100,
+    description: "The cat's id",
+    default: '618a16506d18675674384728',
   })
-  limit: number;
+  id?: string;
 }
