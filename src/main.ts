@@ -5,6 +5,8 @@ import * as chalk from 'chalk';
 
 import { AppModule } from './app.module';
 
+const DOC = 'http://localhost:3000/api-document';
+
 const bootstrap = async () => {
   const app = await NestFactory.create(AppModule, {
     logger: ['error', 'warn'],
@@ -23,10 +25,7 @@ const bootstrap = async () => {
   SwaggerModule.setup('api-document', app, document);
 
   await app.listen(3000);
-  console.log(
-    chalk.green('[Api Document] ') +
-      chalk.yellow('[http://localhost:3000/api-document]'),
-  );
+  console.log(`${chalk.green('[Api Document]')}-${chalk.yellow(`[${DOC}]`)}`);
 };
 
 bootstrap();

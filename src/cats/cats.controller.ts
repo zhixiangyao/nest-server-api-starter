@@ -1,6 +1,5 @@
 import {
   Controller,
-  ParseIntPipe,
   ParseArrayPipe,
   HttpException,
   HttpStatus,
