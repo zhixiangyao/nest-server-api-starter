@@ -21,9 +21,6 @@ describe('CatsController (e2e)', () => {
   });
 
   it('/ (GET)', () => {
-    return request(cats.getHttpServer())
-      .get('/api/cats')
-      .expect(200)
-      .expect('Hello World!');
+    return request(cats.getHttpServer()).get('/api/cats').expect(200).expect('Hello World!');
   });
 });
