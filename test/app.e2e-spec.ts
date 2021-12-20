@@ -1,23 +1,28 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
-import { AppModule } from '../src/app.module';
+import { CatsModule } from '../src/cats/cats.module';
+import { getModelToken } from '@nestjs/mongoose';
 
-describe('AppController (e2e)', () => {
-  let app: INestApplication;
+describe('CatsController (e2e)', () => {
+  let cats: INestApplication;
+  const mockRepository = { getHello: () => 'Hello World!' };
 
   beforeEach(async () => {
-    const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [AppModule],
-    }).compile();
+    const module: TestingModule = await Test.createTestingModule({
+      imports: [{ module: CatsModule }],
+    })
+      .overrideProvider(getModelToken('Cat'))
+      .useValue(mockRepository)
+      .compile();
 
-    app = moduleFixture.createNestApplication();
-    await app.init();
+    cats = module.createNestApplication();
+    await cats.init();
   });
 
   it('/ (GET)', () => {
-    return request(app.getHttpServer())
-      .get('/')
+    return request(cats.getHttpServer())
+      .get('/api/cats')
       .expect(200)
       .expect('Hello World!');
   });
