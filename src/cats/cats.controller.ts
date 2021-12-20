@@ -1,12 +1,13 @@
 import {
+  Post,
+  Put,
+  Delete,
+  Get,
+  Header,
   Controller,
   ParseArrayPipe,
   HttpException,
   HttpStatus,
-  Header,
-  Post,
-  Put,
-  Delete,
   Param,
   Body,
 } from '@nestjs/common';
@@ -69,5 +70,15 @@ export class CatsController {
       message: `Find success!`,
       data,
     };
+  }
+
+  @Get()
+  getHello(): string {
+    return this.catsService.getHello();
+  }
+
+  @Get('hello-text')
+  getHelloText(): { text: string } {
+    return this.catsService.getHelloText();
   }
 }

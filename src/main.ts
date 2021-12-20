@@ -4,8 +4,9 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger'; // https://doc
 import * as chalk from 'chalk';
 
 import { AppModule } from './app.module';
+import { SERVER_PORT, SERVER_DOC } from './env';
 
-const DOC = 'http://localhost:3000/api-document';
+const { log } = console;
 
 const bootstrap = async () => {
   const app = await NestFactory.create(AppModule, {
@@ -24,8 +25,9 @@ const bootstrap = async () => {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api-document', app, document);
 
-  await app.listen(3000);
-  console.log(`${chalk.green('[Api Document]')}-${chalk.yellow(`[${DOC}]`)}`);
+  await app.listen(SERVER_PORT);
+
+  log(`${chalk.green('[Api Document]')}-${chalk.yellow(`[${SERVER_DOC}]`)}`);
 };
 
 bootstrap();

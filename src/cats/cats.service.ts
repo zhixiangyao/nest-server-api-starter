@@ -2,12 +2,12 @@ import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
-import { Cat, CatDocument } from './schemas';
+import { Cat } from './schemas';
 import { CreateCatDto, FindCatDto, UpdateCatDto } from './dto';
 
 @Injectable()
 export class CatsService {
-  constructor(@InjectModel('Cat') private catModel: Model<CatDocument>) {}
+  constructor(@InjectModel('Cat') private catModel: Model<Cat>) {}
 
   async createOne(data: CreateCatDto): Promise<Cat> {
     const createdCat = new this.catModel(data);
@@ -32,5 +32,15 @@ export class CatsService {
     if (data.name) Object.assign(newData, { name: data.name });
 
     this.catModel.updateOne({ _id: id }, { $set: newData }).exec();
+  }
+
+  getHello(): string {
+    return 'Hello World!';
+  }
+
+  getHelloText(): { text: string } {
+    return {
+      text: 'Hello World!',
+    };
   }
 }
