@@ -7,6 +7,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "build": "rimraf dist && nest build",
+    "build:image": "docker build -t server-api .",
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",

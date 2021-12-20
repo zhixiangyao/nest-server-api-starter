@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  # mongo: docker pull mongo
+  mongodb:
+    container_name: mongodb
+    image: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - $HOME/mongodb:/data/db
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: 12345678
+
+  # docker pull mongo-express
+  mongodb-express:
+    container_name: mongodb-express
+    image: mongo-express
+    ports:
+      - 8081:8081
+    restart: always
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: 12345678
+      ME_CONFIG_MONGODB_SERVER: mongodb
+      ME_CONFIG_MONGODB_PORT: 27017
+      ME_CONFIG_OPTIONS_EDITORTHEME: ambiance
+
+  server-api:
+    container_name: server-api
+    image: server-api
+    build:
+      context: .
+      target: production
+      dockerfile: ./Dockerfile
+    command: npm run start:prod
+    ports:
+      - 3001:3000
+    restart: unless-stopped
+    environment:
+      MONGO_URL: mongodb

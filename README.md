@@ -14,6 +14,20 @@
 $ pnpm install
 ```
 
+## Build Docker image
+
+- need docker image
+
+```bash
+$ pnpm run build:image
+```
+
+- build compose
+
+```
+$ docker-compose up
+```
+
 ## Running the app
 
 ```bash
