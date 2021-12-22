@@ -3,6 +3,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { SwaggerModule } from '@nestjs/swagger'; // https://docs.nestjs.com/openapi/introduction
 import * as chalk from 'chalk';
 
+import logger from './utils/logger';
 import { AppModule } from './app.module';
 import { SWAGGER_DOCUMENT_CONFIG, APP } from './app.config';
 
@@ -17,8 +18,9 @@ const bootstrap = async () => {
   SwaggerModule.setup('api-document', app, document);
 
   await app.listen(APP.PORT);
-
-  console.log(`${chalk.green('[Api Document]')}-${chalk.yellow(`[http://localhost:${APP.PORT}/api-document]`)}`);
 };
 
-bootstrap();
+bootstrap().then(() => {
+  logger.info(`NodePress Run! port at ${APP.PORT}`);
+  logger.info(`${chalk.green('Api Document')} ${chalk.yellow(`[http://localhost:${APP.PORT}/api-document]`)}`);
+});
