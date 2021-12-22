@@ -8,6 +8,43 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
+## Tree
+
+```
+├── Dockerfile
+├── README.md
+├── docker-compose.yml
+├── http.http
+├── nest-cli.json
+├── package.json
+├── src
+│   ├── app.config.ts
+│   ├── app.environment.ts
+│   ├── app.module.ts
+│   ├── main.ts
+│   ├── modules
+│   │   └── cats
+│   │       ├── cats.controller.spec.ts
+│   │       ├── cats.controller.ts
+│   │       ├── cats.module.ts
+│   │       ├── cats.service.ts
+│   │       ├── dto
+│   │       │   └── index.ts
+│   │       └── schemas
+│   │           ├── cat.schema.ts
+│   │           └── index.ts
+│   ├── processors
+│   │   └── database
+│   │       └── database.module.ts
+│   └── utils
+│       └── logger.ts
+├── test
+│   ├── cats.e2e-spec.ts
+│   └── jest-e2e.json
+├── tsconfig.build.json
+└── tsconfig.json
+```
+
 ## Installation
 
 ```bash
