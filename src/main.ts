@@ -22,5 +22,5 @@ const bootstrap = async () => {
 
 bootstrap().then(() => {
   logger.info(`NodePress Run! port at ${APP.PORT}`);
-  logger.info(`${chalk.green('Api Document')} ${chalk.yellow(`[http://localhost:${APP.PORT}/api-document]`)}`);
+  logger.info(`[http://localhost:${APP.PORT}/api-document]`);
 });

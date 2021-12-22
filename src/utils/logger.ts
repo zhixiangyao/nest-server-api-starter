@@ -14,7 +14,7 @@ const renderTime = () => {
 
 const renderModule = (message: string) => {
   if (typeof message === 'string' && message.startsWith('[') && message.endsWith(']')) {
-    return chalk.green.underline(message.substr(1, message.length - 2));
+    return chalk.green.underline(message.substring(1, message.length - 2));
   } else {
     return message;
   }
