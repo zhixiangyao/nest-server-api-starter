@@ -26,7 +26,13 @@ const renderMessage = (color: chalk.Chalk, messages: any[]) => {
 
 const renderLog = (method: LoggerLevel, levelLabel: string, messageColor: chalk.Chalk) => {
   return (message: string, ...args: any) => {
-    return console[method](chalk.greenBright(`[NP]`), renderTime(), levelLabel, renderModule(message), ...renderMessage(messageColor, args));
+    return console[method](
+      chalk.greenBright(`[NP]`),
+      renderTime(),
+      levelLabel,
+      renderModule(message),
+      ...renderMessage(messageColor, args),
+    );
   };
 };
 
