@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
-import { CatsModule } from '../src/cats/cats.module';
+import { CatsModule } from '../src/modules/cats/cats.module';
 import { getModelToken } from '@nestjs/mongoose';
 
 describe('CatsController (e2e)', () => {

@@ -1,12 +1,10 @@
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger'; // https://docs.nestjs.com/openapi/introduction
+import { SwaggerModule } from '@nestjs/swagger'; // https://docs.nestjs.com/openapi/introduction
 import * as chalk from 'chalk';
 
 import { AppModule } from './app.module';
-import { SERVER_PORT, SERVER_DOC } from './env';
-
-const { log } = console;
+import { SWAGGER_DOCUMENT_CONFIG, APP } from './app.config';
 
 const bootstrap = async () => {
   const app = await NestFactory.create(AppModule, {
@@ -15,19 +13,12 @@ const bootstrap = async () => {
 
   app.useGlobalPipes(new ValidationPipe({ disableErrorMessages: false }));
 
-  const config = new DocumentBuilder()
-    .setTitle('Cats super cute!')
-    .setDescription('The cats API description')
-    .setVersion('1.0')
-    .addTag('cats', '好多好多小猫咪')
-    .build();
-
-  const document = SwaggerModule.createDocument(app, config);
+  const document = SwaggerModule.createDocument(app, SWAGGER_DOCUMENT_CONFIG);
   SwaggerModule.setup('api-document', app, document);
 
-  await app.listen(SERVER_PORT);
+  await app.listen(APP.PORT);
 
-  log(`${chalk.green('[Api Document]')}-${chalk.yellow(`[${SERVER_DOC}]`)}`);
+  console.log(`${chalk.green('[Api Document]')}-${chalk.yellow(`[http://localhost:${APP.PORT}/api-document]`)}`);
 };
 
 bootstrap();
