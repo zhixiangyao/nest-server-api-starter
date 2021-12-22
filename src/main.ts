@@ -1,7 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { SwaggerModule } from '@nestjs/swagger'; // https://docs.nestjs.com/openapi/introduction
-import * as chalk from 'chalk';
 
 import logger from './utils/logger';
 import { AppModule } from './app.module';
