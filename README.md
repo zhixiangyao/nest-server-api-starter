@@ -30,8 +30,8 @@
 │   │       ├── cats.service.ts
 │   │       ├── dto
 │   │       │   └── index.ts
-│   │       └── schemas
-│   │           ├── cat.schema.ts
+│   │       └── entities
+│   │           ├── cat.entity.ts
 │   │           └── index.ts
 │   ├── processors
 │   │   └── database
