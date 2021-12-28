@@ -2,7 +2,7 @@ import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
-import { Cat } from './schemas';
+import { Cat } from './entities';
 import { CreateCatDto, FindCatDto, UpdateCatDto } from './dto';
 
 @Injectable()

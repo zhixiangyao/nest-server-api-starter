@@ -12,5 +12,3 @@ export class Cat extends Document {
   @Prop({ required: true })
   breed: string;
 }
-
-export const CatSchema = SchemaFactory.createForClass(Cat);

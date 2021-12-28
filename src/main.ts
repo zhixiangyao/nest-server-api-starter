@@ -12,6 +12,7 @@ const bootstrap = async () => {
   });
 
   app.useGlobalPipes(new ValidationPipe({ disableErrorMessages: false }));
+  app.setGlobalPrefix('api'); // 设置全局路由前缀
 
   const document = SwaggerModule.createDocument(app, SWAGGER_DOCUMENT_CONFIG);
   SwaggerModule.setup('api-document', app, document);
