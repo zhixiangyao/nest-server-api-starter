@@ -9,6 +9,7 @@ import { SWAGGER_DOCUMENT_CONFIG, APP } from './app.config';
 const bootstrap = async () => {
   const app = await NestFactory.create(AppModule, {
     logger: ['error', 'warn'],
+    cors: true,
   });
 
   app.useGlobalPipes(new ValidationPipe({ disableErrorMessages: false }));
@@ -18,9 +19,9 @@ const bootstrap = async () => {
   SwaggerModule.setup('api-document', app, document);
 
   await app.listen(APP.PORT);
+
+  logger.info(`NodePress Run! port at ${APP.PORT}`);
+  logger.info(`[http://localhost:${APP.PORT}/api-document/#/]`);
 };
 
-bootstrap().then(() => {
-  logger.info(`NodePress Run! port at ${APP.PORT}`);
-  logger.info(`[http://localhost:${APP.PORT}/api-document]`);
-});
+bootstrap();

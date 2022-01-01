@@ -18,7 +18,7 @@ import { CreateCatDto, FindCatDto } from './dto';
 import { CatsService } from './cats.service';
 
 @ApiTags('cats')
-@Controller('/cats')
+@Controller('cats')
 export class CatsController {
   constructor(private readonly catsService: CatsService) {}
 

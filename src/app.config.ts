@@ -9,13 +9,15 @@ export const SWAGGER_DOCUMENT_CONFIG = (() => {
   config.setTitle('Cats super cute!');
   config.setDescription('The cats API description');
   config.setVersion('1.0');
-  config.addTag('cats', '好多好多小猫咪');
+  config.addTag('cats', '猫');
+  config.addTag('users', '用户');
 
   return config.build();
 })();
 
 export const MONGO_DB = {
-  uri: `mongodb://${process.env.MONGO_URL || 'localhost'}:27017/aliez`,
+  uri: `mongodb://root:12345678@${process.env.MONGO_URL || 'localhost'}:27017`,
+  dbName: 'blog',
   username: 'root',
   password: `12345678`,
 };

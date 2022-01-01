@@ -1,10 +1,10 @@
 import { Test, type TestingModule } from '@nestjs/testing';
+import { CatsModule } from './cats.module';
 import { CatsController } from './cats.controller';
 import { CatsService } from './cats.service';
-import { CatsModule } from './cats.module';
 import { getModelToken } from '@nestjs/mongoose';
 
-describe('CatsController', () => {
+describe('CatsModule', () => {
   const mockRepository = { getHello: () => 'Hello World!' };
   let catsController: CatsController;
   let catsService: CatsService;
