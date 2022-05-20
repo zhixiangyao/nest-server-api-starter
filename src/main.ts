@@ -8,7 +8,7 @@ import { SWAGGER_DOCUMENT_CONFIG, APP } from './app.config';
 
 const bootstrap = async () => {
   const app = await NestFactory.create(AppModule, {
-    logger: ['error', 'warn'],
+    // logger: ['error', 'warn'],
     cors: true,
   });
 
